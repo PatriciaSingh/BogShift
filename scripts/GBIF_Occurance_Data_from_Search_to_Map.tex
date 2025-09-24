@@ -1,0 +1,388 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={GBIF Occurrence Data: from search to map},
+  pdfauthor={Patrícia Singh},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{GBIF Occurrence Data: from search to map}
+\author{Patrícia Singh}
+\date{2025-09-24}
+\begin{document}
+\maketitle
+
+
+\subsection{title: ``GBIF Occurrence Data: from search to map'' author:
+``Patrícia Singh'' date: ``2025-09-24'' format: html: toc: true
+toc-depth: 3 number-sections: true code-fold: show code-tools: true pdf:
+default docx: default editor: visual jupyter: r execute: echo: true
+warning: false message:
+false}\label{title-gbif-occurrence-data-from-search-to-map-author-patruxedcia-singh-date-2025-09-24-format-html-toc-true-toc-depth-3-number-sections-true-code-fold-show-code-tools-true-pdf-default-docx-default-editor-visual-jupyter-r-execute-echo-true-warning-false-message-false}
+
+\begin{quote}
+This Quarto document (\texttt{.qmd}) is ready to knit to
+\textbf{HTML/PDF/DOCX} and to publish on a website (Quarto Pub or GitHub
+Pages). It cleans up and structures your commented script into a
+reproducible workflow.
+\end{quote}
+
+\subsection{1. Packages \& setup}\label{packages-setup}
+
+\begin{verbatim}
+# Install (first time) and load required packages # install.packages(c("rgbif", "dplyr", "maps")) library(rgbif) library(dplyr) library(maps) 
+\end{verbatim}
+
+\subsubsection{What we'll do}\label{what-well-do}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+\item
+  Quick counts from GBIF (occurrences \& observations).
+\item
+\item
+  Explore one species (\emph{Sphagnum fuscum}).
+\item
+\item
+  Handle GBIF's 10k download limit: \texttt{occ\_search()} vs
+  \texttt{occ\_download()}.
+\item
+\item
+  Save the file and import the full dataset.
+\item
+\item
+  Make a simple map.
+\item
+\end{enumerate}
+
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, bottomrule=.15mm, opacitybacktitle=0.6, left=2mm, colframe=quarto-callout-tip-color-frame, colbacktitle=quarto-callout-tip-color!10!white, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip: Occurrence vs Observation}, rightrule=.15mm, opacityback=0, colback=white, titlerule=0mm, toptitle=1mm, toprule=.15mm, arc=.35mm, leftrule=.75mm, breakable, coltitle=black]
+
+\begin{itemize}
+\item
+\item
+  \textbf{Occurrence} = any presence record (specimens, fossils,
+  observations, eDNA\ldots).
+\item
+\item
+  \textbf{Observation} = specifically field/machine observations
+  (e.g.~iNaturalist, bird checklists, camera traps).\\
+
+  :::
+\item
+\end{itemize}
+
+\subsection{2. Quick counts from GBIF}\label{quick-counts-from-gbif}
+
+\begin{verbatim}
+# All GBIF occurrences (all bases of record) occ_count()  # Observations only occ_count(basisOfRecord = "OBSERVATION")  # Occurrences by country (ISO codes) occ_count(country = "CZ")  # Czech Republic occ_count(country = "SK")  # Slovakia  # Observations by country occ_count(country = "CZ", basisOfRecord = "OBSERVATION") occ_count(country = "SK", basisOfRecord = "OBSERVATION") 
+\end{verbatim}
+
+\subsection{\texorpdfstring{3. Example species: \emph{Sphagnum
+fuscum}}{3. Example species: Sphagnum fuscum}}\label{example-species-sphagnum-fuscum}
+
+\begin{verbatim}
+# Check accepted name and key (synonyms) name_suggest(q = "Sphagnum fuscum", rank = "species")  # Quick look at available records with coordinates (preview 10) occ_search(   scientificName = "Sphagnum fuscum",   hasCoordinate   = TRUE,   limit           = 10 ) 
+\end{verbatim}
+
+\begin{quote}
+\textbf{Heads‑up: \texttt{occ\_search()} limits}
+
+\texttt{occ\_search()} will \textbf{not} return more than
+\textbf{100,000} records in one call. If there are more, filter by time
+(\texttt{year}), geography
+(\texttt{decimalLatitude}/\texttt{decimalLongitude}), or tile the area
+and loop. For truly large pulls, use \texttt{occ\_download()} below.\\
+\end{quote}
+
+\subsubsection{Filter to human observations
+only}\label{filter-to-human-observations-only}
+
+\begin{verbatim}
+occ_search(   scientificName = "Sphagnum fuscum",   hasCoordinate  = TRUE,   basisOfRecord  = "HUMAN_OBSERVATION",   limit          = 10 ) 
+\end{verbatim}
+
+\subsubsection{\texorpdfstring{Pull up to 10k records with
+\texttt{occ\_search()}}{Pull up to 10k records with occ\_search()}}\label{pull-up-to-10k-records-with-occ_search}
+
+\begin{verbatim}
+# Up to 10,000 records directly into R sph_occ <- occ_search(   scientificName = "Sphagnum fuscum",   hasCoordinate  = TRUE,   basisOfRecord  = "HUMAN_OBSERVATION",   limit          = 10000 )  # Extract the actual data frame sph_occ_df <- sph_occ$data 
+\end{verbatim}
+
+\subsection{\texorpdfstring{4. Large downloads with
+\texttt{occ\_download()}
+(recommended)}{4. Large downloads with occ\_download() (recommended)}}\label{large-downloads-with-occ_download-recommended}
+
+For complete datasets (beyond 10k), request a \textbf{server-side} GBIF
+download and then fetch it.
+
+\subsubsection{\texorpdfstring{4.1. Create
+\texttt{\textasciitilde{}/.Renviron} with GBIF credentials
+(one-time)}{4.1. Create \textasciitilde/.Renviron with GBIF credentials (one-time)}}\label{create-.renviron-with-gbif-credentials-one-time}
+
+\begin{verbatim}
+# Where is your home directory (Windows example)? path.expand("~") # Create a text file named .Renviron in that folder with these 3 lines: # GBIF_USER=your_gbif_username # GBIF_PWD=your_gbif_password # GBIF_EMAIL=your_email@domain.com  # Restart R so Sys.getenv() can read them Sys.getenv("GBIF_USER") Sys.getenv("GBIF_EMAIL") 
+\end{verbatim}
+
+\begin{quote}
+\textbf{Windows gotcha}
+
+If \texttt{Sys.getenv()} returns empty strings, your file is probably
+\texttt{*.Renviron.txt*}.
+
+\begin{itemize}
+\item
+\item
+  In \textbf{File Explorer} → \textbf{View → Show → File name
+  extensions}, then rename to \textbf{\texttt{.Renviron}} (no
+  \texttt{.txt}).\\
+
+  :::
+\item
+\end{itemize}
+
+\subsubsection{4.2. Submit the download
+request}\label{submit-the-download-request}
+
+\begin{verbatim}
+# Get the GBIF taxonKey for Sphagnum fuscum key <- name_backbone(name = "Sphagnum fuscum")$usageKey  # Request a download (runs on GBIF servers) req <- occ_download(   pred("taxonKey", key),   pred("hasCoordinate", TRUE),   pred("basisOfRecord", "HUMAN_OBSERVATION"),   format = "SIMPLE_CSV"  # tidy columns ) 
+\end{verbatim}
+
+\subsubsection{4.3. Wait until it's ready, then fetch \&
+import}\label{wait-until-its-ready-then-fetch-import}
+
+\begin{verbatim}
+# Block until GBIF marks it as finished occ_download_wait(req)  # Download the zip locally (set overwrite = TRUE if re-downloading) zip_path <- occ_download_get(req, overwrite = TRUE) zip_path  # character path to the downloaded .zip  # Import the CSVs inside the zip to a data.frame dat <- occ_download_import(zip_path)  # Quick checks nrow(dat) dplyr::count(dat, basisOfRecord) 
+\end{verbatim}
+
+Typical metadata echoed after \texttt{occ\_download\_wait()} include
+\textbf{Status}, \textbf{DOI}, \textbf{Download key},
+\textbf{Created/Modified} timestamps, and \textbf{Total records}. Keep
+the DOI for citation.\\
+
+\subsection{5. Quick mapping}\label{quick-mapping}
+
+\begin{verbatim}
+# Simple world map then points map("world") points(dat$decimalLongitude, dat$decimalLatitude, pch = 19, cex = .4)  # Europe extent example map('world', xlim = c(-25, 45), ylim = c(34, 72)) points(dat$decimalLongitude, dat$decimalLatitude, pch = 19, cex = .5) 
+\end{verbatim}
+
+To show the \textbf{entire world}, just use \texttt{map("world")}
+without \texttt{xlim}/\texttt{ylim}. To focus on Europe, set
+\texttt{xlim}/\texttt{ylim} as above.\\
+
+\subsection{6. Reproducibility}\label{reproducibility}
+
+\begin{verbatim}
+sessionInfo() 
+\end{verbatim}
+
+\subsection{7. Publishing options}\label{publishing-options}
+
+\begin{itemize}
+\item
+\item
+  \textbf{Quarto Pub}: \texttt{quarto\ publish} directly from RStudio/VS
+  Code.
+\item
+\item
+  \textbf{GitHub Pages}: put this file in a Quarto project
+  (\texttt{\_quarto.yml}), render to \texttt{docs/}, and enable Pages.
+\item
+\item
+  \textbf{Static upload}: Knit to HTML and upload the single HTML file
+  to your site.
+\item
+\end{itemize}
+
+\subsubsection{\texorpdfstring{Minimal \texttt{\_quarto.yml} for a
+website}{Minimal \_quarto.yml for a website}}\label{minimal-_quarto.yml-for-a-website}
+
+\begin{verbatim}
+project:   type: website   output-dir: docs  website:   title: "Ecological Forecasting Notes"   navbar:     left:       - href: index.qmd         text: Home       - href: gbif-occurrence-workflow.qmd         text: GBIF Workflow  format:   html:     theme: cosmo     toc: true 
+\end{verbatim}
+
+\begin{quote}
+Save this file next to your \texttt{.qmd}, render with
+\texttt{quarto\ render}, then push to GitHub and enable \textbf{GitHub
+Pages} (branch \texttt{main}, folder \texttt{/docs}).
+\end{quote}
+\end{quote}
+
+\end{tcolorbox}
+
+
+
+
+\end{document}
