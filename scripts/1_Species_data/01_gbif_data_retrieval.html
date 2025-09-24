@@ -9,11 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Your Name" />
+<meta name="author" content="Patrícia Singh" />
 
 <meta name="date" content="2025-09-24" />
 
-<title>Tutorial 1: Retrieving Species Data from GBIF</title>
+<title>Species data</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1567,9 +1567,8 @@ border-radius: 0px;
 
 
 
-<h1 class="title toc-ignore">Tutorial 1: Retrieving Species Data from
-GBIF</h1>
-<h4 class="author">Your Name</h4>
+<h1 class="title toc-ignore">Species data</h1>
+<h4 class="author">Patrícia Singh</h4>
 <h4 class="date">2025-09-24</h4>
 
 </div>
@@ -1592,11 +1591,6 @@ data from GBIF. Remember that we can install new packages with the
 function <code>install.packages()</code>.</p>
 <pre class="r"><code>library(rgbif)
 library(dplyr)</code></pre>
-<blockquote>
-<p><strong>🔧 Technical Note</strong>: The configuration above ensures
-your tutorial works both interactively and when knitting, with
-appropriate timeout settings for large downloads.</p>
-</blockquote>
 </div>
 <div id="understanding-gbif-data-types" class="section level2">
 <h2>1.2 Understanding GBIF Data Types</h2>
@@ -1619,8 +1613,8 @@ Birdwatchers’ checklists<br />
 <pre><code>## [1] 16762618</code></pre>
 <blockquote>
 <p><strong>💡 Tip</strong>: For Species Distribution Modeling,
-observations are often preferred because they represent recent, verified
-sightings rather than historical museum records.</p>
+observations are used because they represent recent, verified sightings
+rather than historical museum records.</p>
 </blockquote>
 </div>
 <div id="country-level-data-exploration" class="section level3">
@@ -1776,7 +1770,7 @@ occ_download_wait(req, status_ping = 10)
 zip_path &lt;- occ_download_get(req, overwrite = TRUE,
                              curlopts = list(timeout = 600, connecttimeout = 120))
 
-# Save a copy for future knits
+# Save a copy for future use
 dir.create(&quot;data&quot;, showWarnings = FALSE)
 file.copy(zip_path, &quot;data/gbif_download.zip&quot;, overwrite = TRUE)</code></pre>
 <blockquote>
@@ -1790,12 +1784,22 @@ so you can close R and check back later.</p>
 <h2>1.6 Data Processing</h2>
 <div id="import-downloaded-data" class="section level3">
 <h3>Import Downloaded Data</h3>
-<pre class="r"><code># Use cached file if available, otherwise use fresh download
+<pre class="r"><code># Import downloaded data
 if (file.exists(&quot;data/gbif_download.zip&quot;)) {
-  zip_path &lt;- &quot;data/gbif_download.zip&quot;
-}
-dat &lt;- occ_download_import(zip_path)</code></pre>
-<pre><code>## Error: object &#39;zip_path&#39; not found</code></pre>
+  # Extract and read the CSV file from zip
+  temp_dir &lt;- tempdir()
+  unzip(&quot;data/gbif_download.zip&quot;, exdir = temp_dir)
+  csv_files &lt;- list.files(temp_dir, pattern = &quot;\\.csv$&quot;, full.names = TRUE)
+  dat &lt;- read.delim(csv_files[1], sep = &quot;\t&quot;, quote = &quot;&quot;)
+} else {
+  # If no downloaded file exists, use occ_search for demonstration
+  message(&quot;No download file found, please run the download section first&quot;)
+  search_result &lt;- occ_search(scientificName = &quot;Sphagnum fuscum&quot;, 
+                              hasCoordinate = TRUE, 
+                              basisOfRecord = &#39;HUMAN_OBSERVATION&#39;, 
+                              limit = 300)
+  dat &lt;- search_result$data
+}</code></pre>
 </div>
 <div id="check-data-quality" class="section level3">
 <h3>Check Data Quality</h3>

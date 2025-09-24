@@ -1,6 +1,6 @@
 ---
-title: "Tutorial 1: Retrieving Species Data from GBIF"
-author: "Your Name"
+title: "Species data"
+author: "Patrícia Singh"
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -41,9 +41,6 @@ if (requireNamespace("knitr", quietly = TRUE)) {
 }
 ````
 
-> **🔧 Technical Note**: The configuration above ensures your tutorial works both 
-> interactively and when knitting, with appropriate timeout settings for large downloads.
-
 ## 1.2 Understanding GBIF Data Types
 
 ### Occurrences vs. Observations
@@ -73,7 +70,7 @@ Total number of observations in GBIF:
 occ_count(basisOfRecord='OBSERVATION')
 ````
 
-> **💡 Tip**: For Species Distribution Modeling, observations are often preferred 
+> **💡 Tip**: For Species Distribution Modeling, observations are used
 > because they represent recent, verified sightings rather than historical museum records.
 
 ### Country-level Data Exploration
@@ -201,7 +198,7 @@ occ_download_wait(req, status_ping = 10)
 zip_path <- occ_download_get(req, overwrite = TRUE,
                              curlopts = list(timeout = 600, connecttimeout = 120))
 
-# Save a copy for future knits
+# Save a copy for future use
 dir.create("data", showWarnings = FALSE)
 file.copy(zip_path, "data/gbif_download.zip", overwrite = TRUE)
 ````
@@ -214,11 +211,22 @@ file.copy(zip_path, "data/gbif_download.zip", overwrite = TRUE)
 ### Import Downloaded Data
 
 ````{r import-downloaded-data}
-# Use cached file if available, otherwise use fresh download
+# Import downloaded data
 if (file.exists("data/gbif_download.zip")) {
-  zip_path <- "data/gbif_download.zip"
+  # Extract and read the CSV file from zip
+  temp_dir <- tempdir()
+  unzip("data/gbif_download.zip", exdir = temp_dir)
+  csv_files <- list.files(temp_dir, pattern = "\\.csv$", full.names = TRUE)
+  dat <- read.delim(csv_files[1], sep = "\t", quote = "")
+} else {
+  # If no downloaded file exists, use occ_search for demonstration
+  message("No download file found, please run the download section first")
+  search_result <- occ_search(scientificName = "Sphagnum fuscum", 
+                              hasCoordinate = TRUE, 
+                              basisOfRecord = 'HUMAN_OBSERVATION', 
+                              limit = 300)
+  dat <- search_result$data
 }
-dat <- occ_download_import(zip_path)
 ````
 
 ### Check Data Quality
