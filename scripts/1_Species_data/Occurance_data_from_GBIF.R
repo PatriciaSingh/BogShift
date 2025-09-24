@@ -1,3 +1,7 @@
+## 1 Occurrence data from GBIF ----
+# We will use the package rgbif to search and retrieve data from GBIF. 
+# Remember that we can install new packages with the function install.packages().
+
 library(rgbif)
 library(dplyr)
 

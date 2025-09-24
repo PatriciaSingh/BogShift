@@ -14,10 +14,8 @@ format:
 editor: visual
 ---
 
-## title: "GBIF Occurrence Data: from search to map"  author: "Patrícia Singh"  date: "2025-09-24"  format:  html:  toc: true  toc-depth: 3  number-sections: true  code-fold: show  code-tools: true  pdf: default  docx: default  editor: visual  jupyter: r  execute:  echo: true  warning: false  message: false
+## title: "GBIF Occurrence Data: from search to map" author: "Patrícia Singh" date: "2025-09-24" format: html: toc: true toc-depth: 3 number-sections: true code-fold: show code-tools: true pdf: default docx: default editor: visual jupyter: r execute: echo: true warning: false message: false
 
-> 
->
 > This Quarto document (`.qmd`) is ready to knit to **HTML/PDF/DOCX** and to publish on a website (Quarto Pub or GitHub Pages). It cleans up and structures your commented script into a reproducible workflow.
 
 ## 1. Packages & setup
@@ -30,51 +28,37 @@ editor: visual
 
 1.  
 
-2.  
-
-    Quick counts from GBIF (occurrences & observations).
+2.  Quick counts from GBIF (occurrences & observations).
 
 3.  
 
-4.  
-
-    Explore one species (*Sphagnum fuscum*).
+4.  Explore one species (*Sphagnum fuscum*).
 
 5.  
 
-6.  
-
-    Handle GBIF’s 10k download limit: `occ_search()` vs `occ_download()`.
+6.  Handle GBIF’s 10k download limit: `occ_search()` vs `occ_download()`.
 
 7.  
 
-8.  
-
-    Save the file and import the full dataset.
+8.  Save the file and import the full dataset.
 
 9.  
 
-10. 
-
-    Make a simple map.
+10. Make a simple map.
 
 11. 
 
-::: callout-tip
-
+::::::: callout-tip
 #### Tip: Occurrence vs Observation
 
 -   
 
--   
-
-    **Occurrence** = any presence record (specimens, fossils, observations, eDNA…).
+-   **Occurrence** = any presence record (specimens, fossils, observations, eDNA…).
 
 -   
 
--   
+-   **Observation** = specifically field/machine observations (e.g. iNaturalist, bird checklists, camera traps).\
 
-    **Observation** = specifically field/machine observations (e.g. iNaturalist, bird checklists, camera traps).\
     :::
 
 -   
@@ -92,7 +76,6 @@ editor: visual
 ```
 
 ::: callout-note
-
 #### Heads‑up: `occ_search()` limits
 
 `occ_search()` will **not** return more than **100,000** records in one call. If there are more, filter by time (`year`), geography (`decimalLatitude`/`decimalLongitude`), or tile the area and loop. For truly large pulls, use `occ_download()` below.\
@@ -120,17 +103,15 @@ For complete datasets (beyond 10k), request a **server-side** GBIF download and 
 # Where is your home directory (Windows example)? path.expand("~") # Create a text file named .Renviron in that folder with these 3 lines: # GBIF_USER=your_gbif_username # GBIF_PWD=your_gbif_password # GBIF_EMAIL=your_email@domain.com  # Restart R so Sys.getenv() can read them Sys.getenv("GBIF_USER") Sys.getenv("GBIF_EMAIL") 
 ```
 
-::: callout-warning
-
+::::: callout-warning
 #### Windows gotcha
 
 If `Sys.getenv()` returns empty strings, your file is probably `*.Renviron.txt*`.
 
 -   
 
--   
+-   In **File Explorer** → **View → Show → File name extensions**, then rename to **`.Renviron`** (no `.txt`).\
 
-    In **File Explorer** → **View → Show → File name extensions**, then rename to **`.Renviron`** (no `.txt`).\
     :::
 
 -   
@@ -171,21 +152,15 @@ sessionInfo()
 
 -   
 
--   
-
-    **Quarto Pub**: `quarto publish` directly from RStudio/VS Code.
+-   **Quarto Pub**: `quarto publish` directly from RStudio/VS Code.
 
 -   
 
--   
-
-    **GitHub Pages**: put this file in a Quarto project (`_quarto.yml`), render to `docs/`, and enable Pages.
+-   **GitHub Pages**: put this file in a Quarto project (`_quarto.yml`), render to `docs/`, and enable Pages.
 
 -   
 
--   
-
-    **Static upload**: Knit to HTML and upload the single HTML file to your site.
+-   **Static upload**: Knit to HTML and upload the single HTML file to your site.
 
 -   
 
@@ -195,6 +170,6 @@ sessionInfo()
 project:   type: website   output-dir: docs  website:   title: "Ecological Forecasting Notes"   navbar:     left:       - href: index.qmd         text: Home       - href: gbif-occurrence-workflow.qmd         text: GBIF Workflow  format:   html:     theme: cosmo     toc: true 
 ```
 
-> 
->
 > Save this file next to your `.qmd`, render with `quarto render`, then push to GitHub and enable **GitHub Pages** (branch `main`, folder `/docs`).
+:::::
+:::::::
